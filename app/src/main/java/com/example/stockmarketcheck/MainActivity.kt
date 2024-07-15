@@ -16,7 +16,7 @@ import com.example.stockmarketcheck.ui.theme.StockMarketCheckTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge()//A Test
         setContent {
             StockMarketCheckTheme { // jhvhj
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
