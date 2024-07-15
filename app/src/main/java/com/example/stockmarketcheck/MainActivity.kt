@@ -16,9 +16,9 @@ import com.example.stockmarketcheck.ui.theme.StockMarketCheckTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()//A Test
+        enableEdgeToEdge()
         setContent {
-            StockMarketCheckTheme { // jhvhj
+            StockMarketCheckTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
