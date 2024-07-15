@@ -1,6 +1,10 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 android {
@@ -25,7 +29,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -49,6 +53,19 @@ android {
     }
 }
 
+ktlint {
+    android.set(true)
+    ignoreFailures.set(false)
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.SARIF)
+        reporter(ReporterType.CHECKSTYLE)
+    }
+    tasks.named("preBuild") {
+        dependsOn("ktlintFormat")
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -66,4 +83,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Type-Safe Navigation with the OFFICIAL Compose Navigation Library
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }
