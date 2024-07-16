@@ -3,6 +3,8 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id ("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.serialization)
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
@@ -66,6 +68,7 @@ ktlint {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -87,4 +90,19 @@ dependencies {
     // Type-Safe Navigation with the OFFICIAL Compose Navigation Library
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    //OpenCsv
+    implementation(libs.opencsv)
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    ksp("com.google.dagger:dagger-compiler:2.48.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.48.1")
+
+
+
+
 }
+
+
+
