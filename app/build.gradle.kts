@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
@@ -87,4 +89,32 @@ dependencies {
     // Type-Safe Navigation with the OFFICIAL Compose Navigation Library
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    // OpenCsv
+    implementation(libs.opencsv)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.lifecycle.viewmodel)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
+
+    // Retrofit
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.converter.moshi)
+
+    // Moshi
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
+
+    // OkHttp
+    implementation(libs.okhttp3.okhttp)
+    implementation(libs.okhttp3.logging.interceptor)
 }
