@@ -68,7 +68,6 @@ ktlint {
     }
 }
 
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -91,7 +90,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
-    //OpenCsv
+    // OpenCsv
     implementation(libs.opencsv)
 
     // Hilt
@@ -119,6 +118,3 @@ dependencies {
     implementation(libs.okhttp3.okhttp)
     implementation(libs.okhttp3.logging.interceptor)
 }
-
-
-
