@@ -1,0 +1,3 @@
+package com.example.stockmarketcheck.mainFeature.domain.repository
+
+interface StockRepository

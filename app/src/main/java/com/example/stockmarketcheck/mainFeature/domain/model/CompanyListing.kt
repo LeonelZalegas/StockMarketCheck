@@ -1,4 +1,4 @@
-package com.example.stockmarketcheck.mainFeature.Domain.model
+package com.example.stockmarketcheck.mainFeature.domain.model
 
 data class CompanyListing(
     val name: String,

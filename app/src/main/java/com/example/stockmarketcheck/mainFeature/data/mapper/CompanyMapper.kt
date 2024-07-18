@@ -1,7 +1,7 @@
 package com.example.stockmarketcheck.mainFeature.data.mapper
 
-import com.example.stockmarketcheck.mainFeature.Domain.model.CompanyListing
 import com.example.stockmarketcheck.mainFeature.data.local.CompanyListingEntity
+import com.example.stockmarketcheck.mainFeature.domain.model.CompanyListing
 
 fun CompanyListingEntity.toCompanyListing(): CompanyListing {
     return CompanyListing(
