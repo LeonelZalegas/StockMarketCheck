@@ -1,4 +1,5 @@
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -20,10 +21,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -34,7 +41,29 @@ android {
                 "proguard-rules.pro",
             )
         }
+        debug {
+            isDebuggable = true
+            // Add this to disable splits
+            splits {
+                abi {
+                    isEnable = false
+                }
+                density {
+                    isEnable = false
+                }
+            }
+        }
     }
+    // Disable splits at the Android block level
+    splits {
+        abi {
+            isEnable = false
+        }
+        density {
+            isEnable = false
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -53,6 +82,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+fun getApiKey(): String {
+    val properties = Properties()
+    properties.load(rootProject.file("local.properties").inputStream())
+    return properties.getProperty("API_KEY") ?: ""
 }
 
 ktlint {
@@ -117,4 +152,13 @@ dependencies {
     // OkHttp
     implementation(libs.okhttp3.okhttp)
     implementation(libs.okhttp3.logging.interceptor)
+
+    // compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.material)
+
+    // Kotlin Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }
