@@ -41,6 +41,19 @@ android {
                 "proguard-rules.pro",
             )
         }
+        debug {
+            isDebuggable = true
+            // Add this to disable splits
+            splits {
+                abi {
+                    isEnable = false
+                }
+                density {
+                    isEnable = false
+                }
+            }
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
