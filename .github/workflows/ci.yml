@@ -35,6 +35,8 @@ jobs:
           cache: gradle
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+      - name: Create local.properties
+        run: echo "API_KEY=${{ secrets.API_KEY }}" > local.properties
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
