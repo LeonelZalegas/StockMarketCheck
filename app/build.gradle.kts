@@ -54,6 +54,16 @@ android {
             }
         }
     }
+    // Disable splits at the Android block level
+    splits {
+        abi {
+            isEnable = false
+        }
+        density {
+            isEnable = false
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
