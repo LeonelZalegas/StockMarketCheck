@@ -1,4 +1,5 @@
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -20,10 +21,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -53,6 +60,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+fun getApiKey(): String {
+    val properties = Properties()
+    properties.load(rootProject.file("local.properties").inputStream())
+    return properties.getProperty("API_KEY") ?: ""
 }
 
 ktlint {
