@@ -1,4 +1,5 @@
 [versions]
+accompanistSystemuicontroller = "0.28.0"
 agp = "8.5.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -9,7 +10,7 @@ kotlinxCoroutinesAndroid = "1.7.3"
 kotlinxCoroutinesCore = "1.7.3"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
-composeBom = "2024.04.01"
+composeBom = "2024.06.00"
 composeNavigation = "2.8.0-beta05"
 material = "1.6.8"
 materialIconsExtended = "<latest_compose_version>"
@@ -19,13 +20,14 @@ okHttpVersion = "4.12.0"
 opencsv = "5.7.1"
 retrofitVersion = "2.10.0"
 roomRuntime = "2.6.1"
-serialization = "1.7.1"
+serialization = "1.6.1"
 ksp = "1.9.0-1.0.13"
 hilt = "2.51"
 hiltNavigationCompose = "1.2.0"
 hiltLifecycleViewmodel = "1.0.0-alpha03"
 
 [libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }

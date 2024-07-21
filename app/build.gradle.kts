@@ -132,7 +132,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.hilt.lifecycle.viewmodel)
 
     // Room
     implementation(libs.androidx.room.runtime)
@@ -161,4 +160,6 @@ dependencies {
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.accompanist.systemuicontroller)
 }

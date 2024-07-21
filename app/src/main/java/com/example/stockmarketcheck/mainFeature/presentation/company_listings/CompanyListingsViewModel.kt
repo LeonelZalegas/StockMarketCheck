@@ -24,11 +24,16 @@ class CompanyListingsViewModel
 
         private var searchJob: Job? = null
 
+        init {
+            getCompanyListings()
+        }
+
         fun onEvent(event: CompanyListingsEvent) {
             when (event) {
                 is CompanyListingsEvent.Refresh -> {
                     getCompanyListings(fetchFromRemote = true)
                 }
+
                 is CompanyListingsEvent.OnSearchQueryChange -> { // esto se triggea con cada letra que escribamos
                     state = state.copy(searchQuery = event.query)
                     searchJob?.cancel()
@@ -60,7 +65,8 @@ class CompanyListingsViewModel
                             } // https://www.notion.so/StockMarket-app-fd555472e30c45ef8586565dc35d7d42?pvs=4#302e2f3f8f404d058bd758d15ed998b8
                             is Resource.Error -> Unit
                             is Resource.Loading -> {
-                                state = state.copy(isLoading = result.isLoading) // aca hace referencia a la clase especifica de Loading
+                                state =
+                                    state.copy(isLoading = result.isLoading) // aca hace referencia a la clase especifica de Loading
                             } // (ya q el campo isLoading es especifico de Loading y no es algo q hereda de Resources )
                         } // es como el field Breed de perro, aca le hace un Smart Cast por eso no se ve bien
                     }
