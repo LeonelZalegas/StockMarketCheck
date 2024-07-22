@@ -27,7 +27,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun CompanyListingsScreen(viewModel: CompanyListingsViewModel = hiltViewModel()) {
     val state = viewModel.state
-
     val pullRefreshState =
         rememberPullRefreshState(
             refreshing = state.isRefreshing,
@@ -65,107 +64,50 @@ fun CompanyListingsScreen(viewModel: CompanyListingsViewModel = hiltViewModel())
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(state.companies.size) { i ->
-                    val company = state.companies[i]
-                    CompanyItem(
-                        company = company,
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    // TODO
-                                }
-                                .padding(16.dp),
-                    )
-                    if (i < state.companies.size) {
-                        HorizontalDivider(
+                if (state.isLoading) {
+                    // Show 10 shimmer items when loading
+                    items(10) {
+                        CompanyItem(
+                            company = null,
                             modifier =
-                                Modifier.padding(
-                                    horizontal = 16.dp,
-                                ),
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            isLoading = true,
                         )
+                        if (it < 9) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                            )
+                        }
+                    }
+                } else {
+                    // Show actual items when not loading
+                    items(state.companies.size) { i ->
+                        CompanyItem(
+                            company = state.companies[i],
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        // TODO: Handle click
+                                    }
+                                    .padding(16.dp),
+                            isLoading = false,
+                        )
+                        if (i < state.companies.size - 1) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                            )
+                        }
                     }
                 }
             }
             PullRefreshIndicator(
                 refreshing = state.isRefreshing,
-                pullRefreshState,
-                Modifier.align(
-                    Alignment.TopCenter,
-                ),
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter),
             )
         }
     }
 }
-
-// @OptIn(ExperimentalMaterialApi::class)
-// @Composable
-// fun CompanyListingsScreen(viewModel: CompanyListingsViewModel = hiltViewModel()) {
-//    val state = viewModel.state
-//    val pullRefreshState =
-//        rememberPullRefreshState(
-//            refreshing = state.isRefreshing,
-//            onRefresh = {
-//                viewModel.onEvent(CompanyListingsEvent.Refresh)
-//            },
-//        )
-//
-//    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-//
-//    Column(
-//        modifier =
-//            Modifier
-//                .fillMaxSize()
-//                .padding(top = systemBarsPadding.calculateTopPadding()),
-//    ) {
-//        OutlinedTextField(
-//            value = state.searchQuery,
-//            onValueChange = {
-//                viewModel.onEvent(
-//                    CompanyListingsEvent.OnSearchQueryChange(it),
-//                )
-//            },
-//            modifier =
-//                Modifier
-//                    .padding(16.dp)
-//                    .fillMaxWidth(),
-//            placeholder = {
-//                Text(text = "Search...")
-//            },
-//            maxLines = 1,
-//            singleLine = true,
-//        )
-//        Box(Modifier.pullRefresh(pullRefreshState)) {
-//            LazyColumn(
-//                modifier = Modifier.fillMaxSize(),
-//            ) {
-//                items(state.companies.size.coerceAtLeast(10)) { i ->
-//                    CompanyItem(
-//                        company = if (i < state.companies.size) state.companies[i] else null,
-//                        modifier =
-//                            Modifier
-//                                .fillMaxWidth()
-//                                .clickable {
-//                                    // TODO: Handle click
-//                                }
-//                                .padding(16.dp),
-//                        isLoading = state.isLoading,
-//                    )
-//                    if (i < (state.companies.size.coerceAtLeast(10) - 1)) {
-//                        HorizontalDivider(
-//                            modifier =
-//                                Modifier.padding(
-//                                    horizontal = 16.dp,
-//                                ),
-//                        )
-//                    }
-//                }
-//            }
-//            PullRefreshIndicator(
-//                refreshing = state.isRefreshing,
-//                state = pullRefreshState,
-//                modifier = Modifier.align(Alignment.TopCenter),
-//            )
-//        }
-//    }
-// }
