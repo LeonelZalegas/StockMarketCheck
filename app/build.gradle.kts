@@ -142,11 +142,7 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.converter.moshi)
-
-    // Moshi
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.converter.gson)
 
     // OkHttp
     implementation(libs.okhttp3.okhttp)
@@ -161,5 +157,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    // System Bar control
     implementation(libs.accompanist.systemuicontroller)
 }
