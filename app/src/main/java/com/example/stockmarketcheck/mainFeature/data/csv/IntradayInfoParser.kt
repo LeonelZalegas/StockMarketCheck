@@ -1,7 +1,5 @@
 package com.example.stockmarketcheck.mainFeature.data.csv
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.stockmarketcheck.mainFeature.domain.model.IntradayInfo
 import com.opencsv.CSVReader
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +17,6 @@ import javax.inject.Singleton
 class IntradayInfoParser
     @Inject
     constructor() : CSVParser<IntradayInfo> {
-        @RequiresApi(Build.VERSION_CODES.O)
         override suspend fun parse(stream: InputStream): List<IntradayInfo> {
             val csvReader = CSVReader(InputStreamReader(stream))
             return withContext(Dispatchers.IO) {
@@ -35,7 +32,7 @@ class IntradayInfoParser
                         )
                     } // Aca ya tenemos la lista de IntradayInfo pero a esto filtramos y Guardamos solo
                     .filter { // los IntradayInfo con campo date = a la fecha de ayer de nuetra maquina
-                        it.date.dayOfMonth == LocalDate.now().minusDays(4).dayOfMonth
+                        it.date.dayOfMonth == LocalDate.now().minusDays(1).dayOfMonth
                     }
                     .sortedBy {
                         it.date.hour
@@ -46,7 +43,6 @@ class IntradayInfoParser
             }
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
         private fun convertToLocalDateTime(timestamp: String): LocalDateTime {
             val pattern = "yyyy-MM-dd HH:mm:ss"
             val formatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())

@@ -22,10 +22,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.example.stockmarketcheck.core.navigation.CompanyInfo
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CompanyListingsScreen(viewModel: CompanyListingsViewModel = hiltViewModel()) {
+fun CompanyListingsScreen(
+    viewModel: CompanyListingsViewModel = hiltViewModel(),
+    navController: NavHostController,
+) {
     val state = viewModel.state
     val pullRefreshState =
         rememberPullRefreshState(
@@ -90,7 +95,7 @@ fun CompanyListingsScreen(viewModel: CompanyListingsViewModel = hiltViewModel())
                                 Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        // TODO: Handle click
+                                        navController.navigate(CompanyInfo(state.companies[i].symbol))
                                     }
                                     .padding(16.dp),
                             isLoading = false,

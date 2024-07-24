@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stockmarketcheck.core.util.Resource
 import com.example.stockmarketcheck.mainFeature.domain.repository.StockRepository
-import com.example.stockmarketcheck.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class CompanyInfoViewModel
         private val savedStateHandle: SavedStateHandle,
         private val repository: StockRepository,
     ) : ViewModel() {
-        private var state by mutableStateOf(CompanyInfoState())
+        var state by mutableStateOf(CompanyInfoState())
 
         init {
             viewModelScope.launch {

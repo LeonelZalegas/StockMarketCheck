@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.stockmarketcheck"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -114,12 +114,25 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // MockK
+    testImplementation(libs.mockk.mockk)
+
+    // Turbine (testing flows)
+    testImplementation(libs.turbine)
+
+    // Coroutines Test
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
 
     // Type-Safe Navigation with the OFFICIAL Compose Navigation Library
     implementation(libs.navigation.compose)
@@ -159,4 +172,7 @@ dependencies {
 
     // System Bar control
     implementation(libs.accompanist.systemuicontroller)
+
+    // Graph creation
+    implementation(libs.ycharts)
 }

@@ -1,5 +1,6 @@
 package com.example.stockmarketcheck.mainFeature.data.repository
 
+import com.example.stockmarketcheck.core.util.Resource
 import com.example.stockmarketcheck.mainFeature.data.csv.CSVParser
 import com.example.stockmarketcheck.mainFeature.data.local.StockDatabase
 import com.example.stockmarketcheck.mainFeature.data.mapper.toCompanyInfo
@@ -10,7 +11,6 @@ import com.example.stockmarketcheck.mainFeature.domain.model.CompanyInfo
 import com.example.stockmarketcheck.mainFeature.domain.model.CompanyListing
 import com.example.stockmarketcheck.mainFeature.domain.model.IntradayInfo
 import com.example.stockmarketcheck.mainFeature.domain.repository.StockRepository
-import com.example.stockmarketcheck.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

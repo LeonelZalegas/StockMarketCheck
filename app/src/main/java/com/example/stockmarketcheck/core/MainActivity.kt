@@ -1,4 +1,4 @@
-package com.example.stockmarketcheck
+package com.example.stockmarketcheck.core
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
-import com.example.stockmarketcheck.mainFeature.presentation.navigation.AppNavHost
+import com.example.stockmarketcheck.core.navigation.AppNavHost
 import com.example.stockmarketcheck.ui.theme.StockMarketCheckTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint

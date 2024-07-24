@@ -1,4 +1,4 @@
-package com.example.stockmarketcheck.di
+package com.example.stockmarketcheck.core.di
 
 import android.app.Application
 import androidx.room.Room
@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
+// Damos por sentado que utilizaremos Room y Retrofit (con el mismo Base URL) en otras features
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

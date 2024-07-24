@@ -1,4 +1,4 @@
-package com.example.stockmarketcheck.di
+package com.example.stockmarketcheck.mainFeature.di
 
 import com.example.stockmarketcheck.mainFeature.data.csv.CSVParser
 import com.example.stockmarketcheck.mainFeature.data.csv.CompanyListingsParser
