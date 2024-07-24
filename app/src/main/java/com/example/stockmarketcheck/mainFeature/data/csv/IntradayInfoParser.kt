@@ -9,6 +9,7 @@ import java.io.InputStreamReader
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,10 +27,15 @@ class IntradayInfoParser
                     .mapNotNull { line ->
                         val timestamp = line.getOrNull(0) ?: return@mapNotNull null
                         val close = line.getOrNull(4) ?: return@mapNotNull null
-                        IntradayInfo(
-                            date = convertToLocalDateTime(timestamp),
-                            close = close.toDouble(),
-                        )
+                        val date = convertToLocalDateTime(timestamp) ?: return@mapNotNull null
+                        try {
+                            IntradayInfo(
+                                date = date,
+                                close = close.toDouble(),
+                            )
+                        } catch (e: NumberFormatException) {
+                            null // Return null if close price is not a valid double
+                        }
                     } // Aca ya tenemos la lista de IntradayInfo pero a esto filtramos y Guardamos solo
                     .filter { // los IntradayInfo con campo date = a la fecha de ayer de nuetra maquina
                         it.date.dayOfMonth == LocalDate.now().minusDays(1).dayOfMonth
@@ -43,10 +49,13 @@ class IntradayInfoParser
             }
         }
 
-        private fun convertToLocalDateTime(timestamp: String): LocalDateTime {
-            val pattern = "yyyy-MM-dd HH:mm:ss"
-            val formatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())
-            val localDateTime = LocalDateTime.parse(timestamp, formatter)
-            return localDateTime
+        private fun convertToLocalDateTime(timestamp: String): LocalDateTime? {
+            return try {
+                val pattern = "yyyy-MM-dd HH:mm:ss"
+                val formatter = DateTimeFormatter.ofPattern(pattern, Locale.getDefault())
+                LocalDateTime.parse(timestamp, formatter)
+            } catch (e: DateTimeParseException) {
+                null // Return null if parsing fails
+            }
         }
     }

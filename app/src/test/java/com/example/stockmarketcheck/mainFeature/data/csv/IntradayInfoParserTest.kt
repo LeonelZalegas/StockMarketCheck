@@ -3,6 +3,7 @@ package com.example.stockmarketcheck.mainFeature.data.csv
 import com.example.stockmarketcheck.mainFeature.domain.model.IntradayInfo
 import com.opencsv.CSVReader
 import io.mockk.every
+import io.mockk.mockkConstructor
 import io.mockk.mockkStatic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -56,6 +57,7 @@ class IntradayInfoParserTest {
 
             // Mock the CSVReader
             mockkStatic("com.opencsv.CSVReaderBuilder")
+            mockkConstructor(CSVReader::class)
             every { anyConstructed<CSVReader>().readAll() } returns
                 listOf(
                     arrayOf("timestamp", "open", "high", "low", "close", "volume"),
@@ -93,6 +95,7 @@ class IntradayInfoParserTest {
 
             // Mock the CSVReader
             mockkStatic("com.opencsv.CSVReaderBuilder")
+            mockkConstructor(CSVReader::class)
             every { anyConstructed<CSVReader>().readAll() } returns
                 listOf(
                     arrayOf("timestamp", "open", "high", "low", "close", "volume"),
