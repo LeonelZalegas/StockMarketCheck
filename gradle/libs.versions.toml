@@ -28,13 +28,14 @@ robolectricVersion = "4.13"
 roomRuntime = "2.6.1"
 serialization = "1.6.1"
 ksp = "1.9.0-1.0.13"
-hilt = "2.51"
+hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 turbine = "1.1.0"
 ycharts = "2.1.0"
 junitJupiter = "5.8.2"
 junitKtx = "1.2.1"
 junitJupiterVersion = "5.8.1"
+junitJunit = "4.12"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -83,6 +84,7 @@ ycharts = { module = "co.yml:ycharts", version.ref = "ycharts" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 jupiter-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterVersion" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

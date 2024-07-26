@@ -110,7 +110,7 @@ fun CompanyInfoScreen(
                 )
                 if (state.stockIntradayInfos.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(text = "Market Summary")
+                    Text(text = "Market Summary", modifier = Modifier.padding(start = 10.dp))
                     Spacer(modifier = Modifier.height(32.dp))
 
                     Box(
