@@ -55,7 +55,7 @@ fun CompanyInfoScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp),
+                            .padding(start = 10.dp),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -65,7 +65,7 @@ fun CompanyInfoScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp),
+                            .padding(start = 10.dp),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 HorizontalDivider(
@@ -80,7 +80,7 @@ fun CompanyInfoScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp),
+                            .padding(start = 10.dp),
                     overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -90,7 +90,7 @@ fun CompanyInfoScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp),
+                            .padding(start = 10.dp),
                     overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -106,7 +106,7 @@ fun CompanyInfoScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(start = 5.dp),
+                            .padding(start = 10.dp),
                 )
                 if (state.stockIntradayInfos.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))

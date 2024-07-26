@@ -113,17 +113,29 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.jupiter.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //
+    testImplementation(libs.jupiter.junit.jupiter.api)
+    testRuntimeOnly(libs.jupiter.junit.jupiter.engine)
+
+    // AndroidX Test Core
+    testImplementation(libs.androidx.core)
+
+    // Kotlin testing
+    testImplementation(libs.jetbrains.kotlin.test)
 
     // MockK
     testImplementation(libs.mockk.mockk)
@@ -152,6 +164,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.robolectric.robolectric)
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)

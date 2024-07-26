@@ -29,44 +29,33 @@ class CompanyInfoViewModel
                 state = state.copy(isLoading = true)
                 val companyInfoResult = async { repository.getCompanyInfo(symbol) }
                 val intradayInfoResult = async { repository.getIntradayInfo(symbol) }
-                when (val result = companyInfoResult.await()) {
-                    is Resource.Success -> {
-                        state =
-                            state.copy(
-                                company = result.data,
-                                isLoading = false,
-                                error = null,
-                            )
-                    }
-                    is Resource.Error -> {
-                        state =
+
+                val companyInfo = companyInfoResult.await()
+                val intradayInfo = intradayInfoResult.await()
+
+                state =
+                    when {
+                        companyInfo is Resource.Error ->
                             state.copy(
                                 isLoading = false,
-                                error = result.message,
+                                error = companyInfo.message,
                                 company = null,
                             )
-                    }
-                    else -> Unit
-                }
-                when (val result = intradayInfoResult.await()) {
-                    is Resource.Success -> {
-                        state =
+                        intradayInfo is Resource.Error ->
                             state.copy(
-                                stockIntradayInfos = result.data ?: emptyList(),
                                 isLoading = false,
+                                error = intradayInfo.message,
+                                company = (companyInfo as? Resource.Success)?.data,
+                            )
+                        companyInfo is Resource.Success && intradayInfo is Resource.Success ->
+                            state.copy(
+                                isLoading = false,
+                                company = companyInfo.data,
+                                stockIntradayInfos = intradayInfo.data ?: emptyList(),
                                 error = null,
                             )
+                        else -> state.copy(isLoading = false, error = "An unexpected error occurred")
                     }
-                    is Resource.Error -> {
-                        state =
-                            state.copy(
-                                isLoading = false,
-                                error = result.message,
-                                company = null,
-                            )
-                    }
-                    else -> Unit
-                }
             }
         }
     }

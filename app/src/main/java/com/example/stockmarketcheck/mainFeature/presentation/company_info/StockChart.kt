@@ -59,12 +59,12 @@ fun IntradayInfoChart(
     val xAxisData =
         AxisData.Builder()
             .axisStepSize(50.dp)
-            .steps(infos.size - 1)
+            .steps(infos.size)
             .labelData { i ->
                 if (i != 0) {
-                    infos.getOrNull(i)?.date?.format(DateTimeFormatter.ofPattern("HH:mm")) ?: ""
+                    infos.getOrNull(i)?.date?.minusHours(0)?.format(DateTimeFormatter.ofPattern("HH:mm")) ?: ""
                 } else {
-                    infos.getOrNull(i)?.date?.format(DateTimeFormatter.ofPattern("HH")) ?: ""
+                    infos.getOrNull(i)?.date?.minusHours(0)?.format(DateTimeFormatter.ofPattern("HH")) ?: ""
                 }
             }
             .labelAndAxisLinePadding(15.dp)
