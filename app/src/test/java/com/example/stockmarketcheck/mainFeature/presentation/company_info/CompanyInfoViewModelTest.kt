@@ -52,10 +52,11 @@ class CompanyInfoViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertEquals(companyInfo, viewModel.state.company)
-            assertEquals(intradayInfo, viewModel.state.stockIntradayInfos)
-            assertFalse(viewModel.state.isLoading)
-            assertNull(viewModel.state.error)
+            val state = viewModel.state.value
+            assertEquals(companyInfo, state.company)
+            assertEquals(intradayInfo, state.stockIntradayInfos)
+            assertFalse(state.isLoading)
+            assertNull(state.error)
 
             coVerify { repository.getCompanyInfo("AAPL") }
             coVerify { repository.getIntradayInfo("AAPL") }
@@ -73,10 +74,11 @@ class CompanyInfoViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertNull(viewModel.state.company)
-            assertTrue(viewModel.state.stockIntradayInfos.isEmpty())
-            assertFalse(viewModel.state.isLoading)
-            assertEquals("Couldn't load company info", viewModel.state.error)
+            val state = viewModel.state.value
+            assertNull(state.company)
+            assertTrue(state.stockIntradayInfos.isEmpty())
+            assertFalse(state.isLoading)
+            assertEquals("Couldn't load company info", state.error)
 
             coVerify { repository.getCompanyInfo("AAPL") }
             coVerify { repository.getIntradayInfo("AAPL") }
@@ -95,9 +97,10 @@ class CompanyInfoViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertEquals(companyInfo, viewModel.state.company)
-            assertTrue(viewModel.state.stockIntradayInfos.isEmpty())
-            assertFalse(viewModel.state.isLoading)
-            assertEquals("Error fetching intraday info", viewModel.state.error)
+            val state = viewModel.state.value
+            assertEquals(companyInfo, state.company)
+            assertTrue(state.stockIntradayInfos.isEmpty())
+            assertFalse(state.isLoading)
+            assertEquals("Error fetching intraday info", state.error)
         }
 }

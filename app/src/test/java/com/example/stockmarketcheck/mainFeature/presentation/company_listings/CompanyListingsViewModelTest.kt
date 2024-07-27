@@ -46,8 +46,8 @@ class CompanyListingsViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertEquals(companyListings, viewModel.state.companies)
-            assertFalse(viewModel.state.isLoading)
+            assertEquals(companyListings, viewModel.state.value.companies)
+            assertFalse(viewModel.state.value.isLoading)
 
             coVerify { repository.getCompanyListings(false, "") }
         }
@@ -65,8 +65,8 @@ class CompanyListingsViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertEquals(companyListings, viewModel.state.companies)
-            assertFalse(viewModel.state.isLoading)
+            assertEquals(companyListings, viewModel.state.value.companies)
+            assertFalse(viewModel.state.value.isLoading)
 
             coVerify { repository.getCompanyListings(true, "") }
         }
@@ -84,8 +84,8 @@ class CompanyListingsViewModelTest {
             testDispatcher.scheduler.advanceTimeBy(510) // Wait for debounce
 
             // Assert
-            assertEquals("Apple", viewModel.state.searchQuery)
-            assertEquals(companyListings, viewModel.state.companies)
+            assertEquals("Apple", viewModel.state.value.searchQuery)
+            assertEquals(companyListings, viewModel.state.value.companies)
 
             coVerify { repository.getCompanyListings(false, "apple") }
         }
@@ -106,8 +106,8 @@ class CompanyListingsViewModelTest {
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Assert
-            assertFalse(viewModel.state.isLoading)
-            assertTrue(viewModel.state.companies.isEmpty())
+            assertFalse(viewModel.state.value.isLoading)
+            assertTrue(viewModel.state.value.companies.isEmpty())
 
             coVerify { repository.getCompanyListings(false, "") }
         }
