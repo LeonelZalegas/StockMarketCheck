@@ -41,27 +41,6 @@ android {
                 "proguard-rules.pro",
             )
         }
-        debug {
-            isDebuggable = true
-            // Add this to disable splits
-            splits {
-                abi {
-                    isEnable = false
-                }
-                density {
-                    isEnable = false
-                }
-            }
-        }
-    }
-    // Disable splits at the Android block level
-    splits {
-        abi {
-            isEnable = false
-        }
-        density {
-            isEnable = false
-        }
     }
 
     compileOptions {
