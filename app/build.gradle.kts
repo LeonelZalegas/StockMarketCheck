@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.stockmarketcheck"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,27 +40,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-        }
-        debug {
-            isDebuggable = true
-            // Add this to disable splits
-            splits {
-                abi {
-                    isEnable = false
-                }
-                density {
-                    isEnable = false
-                }
-            }
-        }
-    }
-    // Disable splits at the Android block level
-    splits {
-        abi {
-            isEnable = false
-        }
-        density {
-            isEnable = false
         }
     }
 
@@ -113,13 +92,38 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.jupiter.junit.jupiter)
+    testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    testImplementation(libs.jupiter.junit.jupiter.api)
+    testRuntimeOnly(libs.jupiter.junit.jupiter.engine)
+
+    // AndroidX Test Core
+    testImplementation(libs.androidx.core)
+
+    // Kotlin testing
+    testImplementation(libs.jetbrains.kotlin.test)
+
+    // MockK
+    testImplementation(libs.mockk.mockk)
+
+    // Turbine (testing flows)
+    testImplementation(libs.turbine)
+
+    // Coroutines Test
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
 
     // Type-Safe Navigation with the OFFICIAL Compose Navigation Library
     implementation(libs.navigation.compose)
@@ -132,7 +136,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.hilt.lifecycle.viewmodel)
 
     // Room
     implementation(libs.androidx.room.runtime)
@@ -140,14 +143,11 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.robolectric.robolectric)
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.converter.moshi)
-
-    // Moshi
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.converter.gson)
 
     // OkHttp
     implementation(libs.okhttp3.okhttp)
@@ -161,4 +161,10 @@ dependencies {
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // System Bar control
+    implementation(libs.accompanist.systemuicontroller)
+
+    // Graph creation
+    implementation(libs.ycharts)
 }
