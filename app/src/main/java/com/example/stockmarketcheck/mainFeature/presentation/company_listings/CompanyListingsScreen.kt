@@ -18,6 +18,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,16 +30,14 @@ import com.example.stockmarketcheck.core.navigation.CompanyInfo
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CompanyListingsScreen(
-    viewModel: CompanyListingsViewModel = hiltViewModel(),
-    navController: NavHostController,
+    state: CompanyListingsState,
+    onEvent: (CompanyListingsEvent) -> Unit,
+    onCompanyClick: (String) -> Unit,
 ) {
-    val state = viewModel.state
     val pullRefreshState =
         rememberPullRefreshState(
             refreshing = state.isRefreshing,
-            onRefresh = {
-                viewModel.onEvent(CompanyListingsEvent.Refresh)
-            },
+            onRefresh = { onEvent(CompanyListingsEvent.Refresh) },
         )
 
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
@@ -50,18 +50,12 @@ fun CompanyListingsScreen(
     ) {
         OutlinedTextField(
             value = state.searchQuery,
-            onValueChange = {
-                viewModel.onEvent(
-                    CompanyListingsEvent.OnSearchQueryChange(it),
-                )
-            },
+            onValueChange = { onEvent(CompanyListingsEvent.OnSearchQueryChange(it)) },
             modifier =
                 Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-            placeholder = {
-                Text(text = "Search...")
-            },
+            placeholder = { Text(text = "Search...") },
             maxLines = 1,
             singleLine = true,
         )
@@ -94,9 +88,7 @@ fun CompanyListingsScreen(
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .clickable {
-                                        navController.navigate(CompanyInfo(state.companies[i].symbol))
-                                    }
+                                    .clickable { onCompanyClick(state.companies[i].symbol) }
                                     .padding(16.dp),
                             isLoading = false,
                         )
@@ -115,4 +107,19 @@ fun CompanyListingsScreen(
             )
         }
     }
+}
+
+@Composable
+fun CompanyListingsScreenContainer(
+    navController: NavHostController,
+    viewModel: CompanyListingsViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsState()
+    CompanyListingsScreen(
+        state = state,
+        onEvent = viewModel::onEvent,
+        onCompanyClick = { symbol ->
+            navController.navigate(CompanyInfo(symbol))
+        },
+    )
 }

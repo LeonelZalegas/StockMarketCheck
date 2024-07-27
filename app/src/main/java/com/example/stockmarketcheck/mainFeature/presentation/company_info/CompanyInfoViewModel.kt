@@ -1,7 +1,6 @@
 package com.example.stockmarketcheck.mainFeature.presentation.company_info
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,10 @@ import com.example.stockmarketcheck.core.util.Resource
 import com.example.stockmarketcheck.mainFeature.domain.repository.StockRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,45 +20,46 @@ import javax.inject.Inject
 class CompanyInfoViewModel
     @Inject
     constructor(
-        // https://www.notion.so/StockMarket-app-fd555472e30c45ef8586565dc35d7d42?pvs=4#944cfb21f2114efdbf2842429e3a6e76
         private val savedStateHandle: SavedStateHandle,
         private val repository: StockRepository,
     ) : ViewModel() {
-        var state by mutableStateOf(CompanyInfoState())
+        private val _state = MutableStateFlow(CompanyInfoState())
+        val state: StateFlow<CompanyInfoState> = _state.asStateFlow()
 
         init {
             viewModelScope.launch {
                 val symbol = savedStateHandle.get<String>("symbol") ?: return@launch
-                state = state.copy(isLoading = true)
+                _state.update { it.copy(isLoading = true) }
                 val companyInfoResult = async { repository.getCompanyInfo(symbol) }
                 val intradayInfoResult = async { repository.getIntradayInfo(symbol) }
 
                 val companyInfo = companyInfoResult.await()
                 val intradayInfo = intradayInfoResult.await()
 
-                state =
+                _state.update {
                     when {
                         companyInfo is Resource.Error ->
-                            state.copy(
+                            it.copy(
                                 isLoading = false,
                                 error = companyInfo.message,
                                 company = null,
                             )
                         intradayInfo is Resource.Error ->
-                            state.copy(
+                            it.copy(
                                 isLoading = false,
                                 error = intradayInfo.message,
                                 company = (companyInfo as? Resource.Success)?.data,
                             )
                         companyInfo is Resource.Success && intradayInfo is Resource.Success ->
-                            state.copy(
+                            it.copy(
                                 isLoading = false,
                                 company = companyInfo.data,
                                 stockIntradayInfos = intradayInfo.data ?: emptyList(),
                                 error = null,
                             )
-                        else -> state.copy(isLoading = false, error = "An unexpected error occurred")
+                        else -> it.copy(isLoading = false, error = "An unexpected error occurred")
                     }
+                }
             }
         }
     }
