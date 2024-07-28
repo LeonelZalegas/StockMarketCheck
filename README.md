@@ -15,7 +15,7 @@
 | <img height="20" src="https://3.bp.blogspot.com/-VVp3WvJvl84/X0Vu6EjYqDI/AAAAAAAAPjU/ZOMKiUlgfg8ok8DY8Hc-ocOvGdB0z86AgCLcBGAsYHQ/s1600/jetpack%2Bcompose%2Bicon_RGB.png">    UI Framework  | [Jetpack Compose](https://developer.android.com/jetpack/compose) |
 | 💉 Dependency Injection           | [Dagger-Hilt](https://dagger.dev/hilt/)                                                    |
 | 🌐 Networking                     | [Retrofit](https://square.github.io/retrofit/) + [Gson](https://github.com/google/gson)     |
-| 🗄️ Local Database                 | [Room Database](https://developer.android.com/jetpack/androidx/releases/room)  (Single source of truth)            |
+| 🗄️ Local Database                 | [Room Database](https://developer.android.com/jetpack/androidx/releases/room)  (SSOT)         |
 | 🚦 Navigation                     | [Type-Safe Navigation](https://developer.android.com/guide/navigation/design/type-safety)  |
 | 🔄 State Management               | [Flows](https://kotlinlang.org/docs/flow.html) + [StateFlows](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) |
 | 🛠️ Dependency Management          | [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)             |
